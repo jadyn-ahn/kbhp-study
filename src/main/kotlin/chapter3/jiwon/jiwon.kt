@@ -1,7 +1,17 @@
-package chapter3
+package chapter3.jiwon
 
 import kotlin.math.max
 import kotlin.math.min
+
+fun<T> List<T>.head(): T = when (this.size) {
+    0 -> throw RuntimeException("no element in list")
+    else -> this[0]
+}
+
+fun<T> List<T>.tail(): List<T> = when (this.size) {
+    0 -> listOf()
+    else -> this.subList(1, this.size)
+}
 
 // 7
 fun takeSequence(n: Int, sequence: Sequence<Int>): List<Int> = when {

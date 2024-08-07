@@ -1,7 +1,6 @@
-package chapter3
+package chapter3.jiwon
 
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 
 class JiwonKtTest : FreeSpec({
