@@ -38,4 +38,22 @@ class JiwonKtTest : FreeSpec({
             result shouldBe listOf(1, 2, 3, 4, 5)
         }
     }
+
+    "gcd" - {
+        "2와 4의 최대공약수" {
+            gcd(2, 4) shouldBe 2
+        }
+
+        "1과 1의 최대 공약수" {
+            gcd(1, 1) shouldBe 1
+        }
+
+        "1과 0의 최대공약수" {
+            gcd(1, 0) shouldBe 1
+        }
+
+        "12와 52의 최대공약수" {
+            gcd(52, 12) shouldBe 4
+        }
+    }
 })
