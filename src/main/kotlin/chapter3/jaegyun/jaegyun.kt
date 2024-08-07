@@ -99,12 +99,12 @@ fun factorialMemoization(n: Int): Int {
 }
 
 // 3-11, WIP
-fun factorialFunc(n: Int): Int {
-    fun factorialFuncInternal(n: Int, i: Int, fn1: Int): Int =
-        when {
-            n in 0..1 -> 1
-            else -> n * fn1
-        }
-
-    factorialFuncInternal(n, factorialFuncInternal(n -1, factorialFuncInternal(n - 2)))
-}
+//fun factorialFunc(n: Int): Int {
+//    fun factorialFuncInternal(n: Int, i: Int, fn1: Int): Int =
+//        when {
+//            n in 0..1 -> 1
+//            else -> n * fn1
+//        }
+//
+//    factorialFuncInternal(n, factorialFuncInternal(n -1, factorialFuncInternal(n - 2)))
+//}
