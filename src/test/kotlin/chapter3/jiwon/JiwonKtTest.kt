@@ -1,6 +1,8 @@
 package chapter3.jiwon
 
+import chapter3.ming.factorial
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 
 class JiwonKtTest : FreeSpec({
@@ -54,5 +56,11 @@ class JiwonKtTest : FreeSpec({
         "12와 52의 최대공약수" {
             gcd(52, 12) shouldBe 4
         }
+    }
+
+    "factorialMemoization" {
+        factorialMemoization(0) shouldBe 1
+        factorialMemoization(1) shouldBe 1
+        factorialMemoization(5) shouldBe 120
     }
 })

@@ -47,3 +47,19 @@ fun gcd(m: Int, n: Int): Int {
         gcd(smaller, rem)
     }
 }
+
+// 3 - 10
+fun factorialMemoization(n: Int): Int {
+    val memo = Array(n + 1) { -1 }
+
+    fun factorial(num: Int): Int = when {
+        num <= 1 -> 1
+        memo[num] != -1 -> memo[num]
+        else -> {
+            memo[num] = num * factorial(num -1)
+            memo[num]
+        }
+    }
+
+    return factorial(n)
+}
