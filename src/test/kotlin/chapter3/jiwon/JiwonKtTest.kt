@@ -63,4 +63,10 @@ class JiwonKtTest : FreeSpec({
         factorialMemoization(1) shouldBe 1
         factorialMemoization(5) shouldBe 120
     }
+
+    "factorialFP" {
+        factorialFP(0) shouldBe 1
+        factorialFP(1) shouldBe 1
+        factorialFP(5) shouldBe 120
+    }
 })
