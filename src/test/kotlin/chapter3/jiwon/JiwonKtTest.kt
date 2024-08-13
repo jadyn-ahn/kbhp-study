@@ -69,4 +69,12 @@ class JiwonKtTest : FreeSpec({
         factorialFP(1) shouldBe 1
         factorialFP(5) shouldBe 120
     }
+
+    "powerTailRec" {
+        power(0.0, 1) shouldBe 0.0
+        power(0.0, 0) shouldBe 1.0
+        power(2.0, 0) shouldBe 1.0
+        power(2.0, 1) shouldBe 2.0
+        power(2.0, 5) shouldBe 32.0
+    }
 })

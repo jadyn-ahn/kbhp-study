@@ -64,11 +64,20 @@ fun factorialMemoization(n: Int): Int {
     return factorial(n)
 }
 
-// 3 - 11
+// 3 - 11 / 12
 fun factorialFP(n: Int): Int = factorialFP(n, 1)
 
 tailrec fun factorialFP(n: Int, medium: Int): Int = when(n) {
     0 -> medium
     1 -> medium
     else -> factorialFP(n - 1, n * medium)
+}
+
+// 3 - 13
+fun power(x: Double, n: Int): Double = power(x, n, 1.0)
+
+tailrec fun power(x: Double, n: Int, acc: Double): Double = when {
+    x == 0.0 -> if (n == 0) 1.0 else 0.0
+    n == 0 -> acc
+    else -> power(x, n - 1, acc * x)
 }
