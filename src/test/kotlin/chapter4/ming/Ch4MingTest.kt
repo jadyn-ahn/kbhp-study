@@ -47,4 +47,35 @@ class Ch4MingTest :
                 addThreeCalculator(2, 3) shouldBe 8
             }
         }
+
+        describe("curried") {
+            it("max") {
+                val maxComparedToThree = max(3)
+                val maxComparedToTwo = max(2)
+
+                maxComparedToThree(2) shouldBe 3
+                maxComparedToThree(4) shouldBe 4
+                maxComparedToTwo(1) shouldBe 2
+                maxComparedToTwo(4) shouldBe 4
+            }
+            it("min") {
+                val min = { a: Int, b: Int -> if (a > b) b else a }
+                val curried = min.curried()
+
+                curried(3)(2) shouldBe 2
+                curried(3)(4) shouldBe 3
+            }
+        }
+
+        describe("square compose maxValue") {
+            composedFunc1(listOf(3, 4, 1, 2, 6, 9)) shouldBe 81
+            composedFunc1(listOf(3, 4, 1, 2, 6, 9)) shouldBe 81
+            composedFunc2(listOf(3, 4, 1, 2, 6, 9)) shouldBe 81
+            composedFunc2(listOf(3, 4, 1, 2, 6, 9)) shouldBe 81
+        }
+
+        describe("takeWhile") {
+            takeWhile({ i: Int -> i < 3 }, listOf(1, 2, 3, 4, 5)) shouldBe listOf(1, 2)
+            takeWhile({ i: Int -> i < 3 }, listOf(5, 4, 3, 2, 1)) shouldBe listOf(2, 1)
+        }
     })
