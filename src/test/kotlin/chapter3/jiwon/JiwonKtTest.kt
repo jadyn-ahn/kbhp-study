@@ -1,7 +1,10 @@
 package chapter3.jiwon
 
+import chapter3.ming.factorial
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import java.math.BigDecimal
 
 class JiwonKtTest : FreeSpec({
     "takeSequence" - {
@@ -54,5 +57,59 @@ class JiwonKtTest : FreeSpec({
         "12와 52의 최대공약수" {
             gcd(52, 12) shouldBe 4
         }
+    }
+
+    "factorialMemoization" {
+        factorialMemoization(0) shouldBe 1
+        factorialMemoization(1) shouldBe 1
+        factorialMemoization(5) shouldBe 120
+    }
+
+    "factorialFP" {
+        factorialFP(0) shouldBe 1
+        factorialFP(1) shouldBe 1
+        factorialFP(5) shouldBe 120
+    }
+
+    "powerTailRec" {
+        power(0.0, 1) shouldBe 0.0
+        power(0.0, 0) shouldBe 1.0
+        power(2.0, 0) shouldBe 1.0
+        power(2.0, 1) shouldBe 2.0
+        power(2.0, 5) shouldBe 32.0
+    }
+
+    "toBinary" {
+        toBinary(0) shouldBe "0"
+        toBinary(1) shouldBe "1"
+        toBinary(2) shouldBe "10"
+        toBinary(10) shouldBe "1010"
+    }
+
+    "replicate" {
+        replicate(0, 1) shouldBe emptyList()
+        replicate(1, 1) shouldBe listOf(1)
+        replicate(4, 1) shouldBe listOf(1, 1, 1, 1)
+    }
+
+    "elem" {
+        elem(1, listOf(1, 2, 3)) shouldBe true
+        elem(1, emptyList()) shouldBe false
+        elem(1, listOf(3, 4, 1)) shouldBe true
+        elem(1, listOf(3, 4, 5)) shouldBe false
+    }
+
+    "root/divider" {
+        root(4.0) shouldBe 0.5
+        root(1.0) shouldBe 0.5
+    }
+
+    "root/divider with trampoline" {
+        trampoline(root2(4.0)) shouldBe 0.5
+        trampoline(root2(1.0)) shouldBe 0.5
+    }
+
+    "factorial with trampoline" {
+        trampoline(factorialWithTrampoline(BigDecimal(5))) shouldBe BigDecimal(120)
     }
 })
