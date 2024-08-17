@@ -2,6 +2,7 @@ package chapter3.jaegyun
 
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.sqrt
 
 fun<T> List<T>.head(): T = when (this.size) {
     0 -> throw RuntimeException("no element in list")
@@ -108,3 +109,68 @@ fun factorialMemoization(n: Int): Int {
 //
 //    factorialFuncInternal(n, factorialFuncInternal(n -1, factorialFuncInternal(n - 2)))
 //}
+
+// 3-12
+fun tailrecFactorial(n: Int): Int {
+    tailrec fun internalTailrecFactorial(n: Int, result: Int = 1): Int =
+        when (n) {
+            0 -> result
+            else -> internalTailrecFactorial(n - 1, result * n)
+        }
+    return internalTailrecFactorial(n)
+}
+
+// 3-13
+fun tailrecPower(x: Double, n: Int): Double {
+    tailrec fun internalPower(x: Double, n: Int, result: Double = 1.0): Double =
+        when (n) {
+            0 -> 1.0
+            1 -> x
+            else -> internalPower(x, n-1, result * x)
+        }
+
+    return internalPower(x, n)
+}
+
+// 3-14
+fun tailedToBinary(n: Int): String {
+    tailrec fun internalToBinary (n: Int, acc: String = ""): String = when {
+        n <= 1 -> "$n$acc"
+        else -> internalToBinary(n / 2, "${n % 2}$acc")
+    }
+
+    return internalToBinary(n)
+}
+
+// 3-15
+fun tailedReplicate(n: Int, element: Int): List<Int> {
+    tailrec fun internalReplicate(n: Int, element: Int, acc: List<Int> = emptyList()): List<Int> = when (n) {
+        0 -> emptyList<Int>()
+        else -> internalReplicate(n - 1, element, listOf(element) + acc)
+    }
+    return internalReplicate(n, element)
+}
+
+// 3-16
+tailrec fun tailedElem(num: Int, list: List<Int>): Boolean =
+    when (list.size) {
+        0 -> false
+        1 -> list.head() == num
+        else -> tailedElem(num, list.tail())
+    }
+
+// 3-17
+fun findFirstUnderOne(n: Double): Double = when {
+    sqrt(n) / 2 < 1 -> n
+    else -> findFirstUnderOne(sqrt(n) / 2)
+}
+
+fun <T> Set<T>.head() = first()
+fun <T> Set<T>.tail() = drop(1).toSet()
+
+tailrec fun <T> powerSet(s: Set<T>, acc: Set<Set<T>>): Set<Set<T>> = when {
+    s.isEmpty() -> acc
+    else -> {
+        powerSet(s.tail(), acc + acc.map { it + s.head() })
+    }
+}
