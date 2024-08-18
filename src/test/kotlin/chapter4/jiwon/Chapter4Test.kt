@@ -1,6 +1,6 @@
 package chapter4.jiwon
 
-import chapter4.jiwon.partial1
+import chapter4.ming.compose
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
@@ -21,10 +21,10 @@ class Chapter4Test : FreeSpec({
     }
 
     "partialAppliedFunction" {
-        val func = {
-            a: String,
-            b: String,
-            c: String -> a+b+c
+        val func = { a: String,
+                     b: String,
+                     c: String ->
+            a + b + c
         }
 
         val partiallyAppliedFunc1 = func.partial1("1")
@@ -38,5 +38,25 @@ class Chapter4Test : FreeSpec({
         val partiallyAppliedFunc3 = func.partial3("1")
         val result3 = partiallyAppliedFunc3("2", "3")
         result3 shouldBe "231"
+    }
+
+    "maxWith" {
+        maxWith(4)(1) shouldBe 4
+        maxWith(5)(10) shouldBe 10
+    }
+
+    "minCurried" {
+        minCurried(1)(2) shouldBe 1
+        minCurried(5)(2) shouldBe 2
+    }
+
+    "powerOfMax" {
+        power(max(listOf(1, 2, 3))) shouldBe 9
+        power(max(listOf(5, 3, 2))) shouldBe 25
+    }
+
+    "powerOfMax with compose" {
+        val composed = power compose max
+        composed(listOf(1, 2, 3)) shouldBe 9
     }
 })
