@@ -59,4 +59,13 @@ class Chapter4Test : FreeSpec({
         val composed = power compose max
         composed(listOf(1, 2, 3)) shouldBe 9
     }
+
+    "takeWhile" {
+         takeWhile({ it < 3 }, listOf(1, 2, 3, 4, 5)) shouldBe listOf(1, 2)
+    }
+
+    "takeWhile with sequence" {
+        val input = generateSequence(1) { it + 1 }
+        takeWhile2({ it < 20 }, input) shouldBe listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
+    }
 })

@@ -1,5 +1,7 @@
 package chapter4.jiwon
 
+import chapter3.jiwon.tail
+import chapter3.ming.head
 import chapter4.ming.curried
 import kotlin.math.max
 import kotlin.math.min
@@ -70,3 +72,26 @@ infix fun <F, G, R> ((F) -> R).compose(g: (G) -> F): (G) -> R {
 // 4 - 5, 4 - 6
 val max = { it: List<Int> -> it.max() }
 val power = { it: Int -> it * it }
+
+// 4-7
+tailrec fun <P1> takeWhile(fn: (P1) -> Boolean, list: List<P1>, acc: List<P1> = emptyList()): List<P1> = when {
+    list.isEmpty() -> acc
+    else -> {
+        val head = list.head()
+        val accList = if(fn(head)) {
+            acc + listOf(head)
+        } else {
+            acc
+        }
+        takeWhile(fn, list.tail(), accList)
+    }
+}
+
+// 4-8
+tailrec fun <P1> takeWhile2(fn: (P1) -> Boolean, sequence: Sequence<P1>, acc: List<P1> = emptyList()): List<P1> = when {
+    sequence.none() || !fn(sequence.first()) -> acc
+    else -> {
+        val head = sequence.first()
+        takeWhile2(fn, sequence.drop(1), acc + listOf(head))
+    }
+}
