@@ -1,5 +1,6 @@
 package chapter3.jaegyun
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
@@ -115,6 +116,23 @@ class Chapter3JaegyunTest : StringSpec({
 
     "memo factorial 7" {
         factorialMemoization(7) shouldBe 5040
+    }
+
+    "stackoverflow without tailrec" {
+        shouldThrow<StackOverflowError> { factorial(100000) }
+    }
+
+    "with tailrec" {
+        val result = tailrecFactorial(100000)
+        println("result = ${result}")
+    }
+
+    "tailrec factoring 7" {
+        tailrecFactorial(7) shouldBe 5040
+    }
+
+    "tailed toBInary 5" {
+        tailedToBinary(5) shouldBe "101"
     }
 
 })
