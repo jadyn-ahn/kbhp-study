@@ -34,3 +34,50 @@ fun <T> FunList<T>.getHead(): T = when(this) {
     FunList.Nil -> throw NoSuchElementException()
     is FunList.Cons -> head
 }
+
+// 5-4
+tailrec fun <T> FunList<T>.drop(n: Int): FunList<T> = when {
+    n == 0 -> this
+    else -> {
+        this.getTail().drop(n - 1)
+    }
+}
+
+// 5 - 5
+tailrec fun <T> FunList<T>.dropWhile(p: (T) -> Boolean): FunList<T> = when {
+    this == FunList.Nil -> this
+    p(this.getHead()) -> this.getTail()
+    else -> {
+        this.getTail().dropWhile(p)
+    }
+}
+
+// 5 - 8
+tailrec fun <T, R> FunList<T>.indexedMap(index: Int = 0, acc: FunList<R> = FunList.Nil, f: (Int, T) -> R): FunList<R> = when(this) {
+    FunList.Nil -> acc.reverse()
+    is FunList.Cons -> tail.indexedMap(index + 1, acc.addHead(f(index, this.getHead())), f)
+}
+
+tailrec fun <T, R> FunList<T>.foldLeft(acc: R, f: (R, T) -> R): R = when(this) {
+    FunList.Nil -> acc
+    is FunList.Cons -> tail.foldLeft(f(acc, head), f)
+}
+
+// 5 - 9
+fun FunList<Int>.maximumByFoldLeft(): Int = this.foldLeft(0) {
+    acc, x -> if (acc > x) acc else x
+}
+
+sealed class FunStream<out T> {
+    object Nil: FunStream<Nothing>()
+    data class Cons<out T>(val head: () -> T, val tail: () -> FunStream<T>): FunStream<T>()
+}
+
+tailrec fun <T, R> FunStream<T>.foldLeft(acc: R, f: (R, T) -> R): R = when(this) {
+    FunStream.Nil -> acc
+    is FunStream.Cons -> tail().foldLeft(f(acc, head()), f)
+}
+
+fun FunStream<Int>.sum(): Int {
+    return this.foldLeft(0) { acc, v -> acc + v }
+}
